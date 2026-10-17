@@ -37,7 +37,7 @@ jobs:
         with:
           name: Clean
           path: |
-            AKernel-spes*.zip
+            Clean*.zip
             build-output.txt
           if-no-files-found: error
           retention-days: 7
