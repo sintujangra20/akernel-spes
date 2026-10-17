@@ -1,23 +1,27 @@
-name: Build AKernel-spes
+name: Build Kernel
 
 on:
-  push:
-    branches:
-      - akernel-12-15
   workflow_dispatch:
-
-permissions:
-  contents: read
+    inputs:
+      branch:
+        description: "Select branch to build"
+        required: true
+        type: choice
+        options:
+          - akernel-12-15
+          - clean-12-15
+          - main
+          - root-12-15
 
 jobs:
   build:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout source
+      - name: Checkout selected branch
         uses: actions/checkout@v4
         with:
-          ref: akernel-12-15
+          ref: ${{ inputs.branch }}
           submodules: recursive
           fetch-depth: 0
 
@@ -35,9 +39,9 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: AKernel-spes
+          name: kernel-${{ inputs.branch }}
           path: |
-            AKernel-spes*.zip
+            *.zip
             build-output.txt
           if-no-files-found: error
           retention-days: 7
@@ -46,6 +50,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-build-log
+          name: kernel-build-log-${{ inputs.branch }}
           path: build-output.txt
           if-no-files-found: ignore
