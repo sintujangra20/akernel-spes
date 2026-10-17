@@ -1,4 +1,4 @@
-name: Build AKernel-spes
+name: Build Main
 
 on:
   push:
