@@ -1,4 +1,4 @@
-name: Build AKernel-spes
+name: Build Root
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
         with:
           name: root
           path: |
-            AKernel-spes*.zip
+            Root*.zip
             build-output.txt
           if-no-files-found: error
           retention-days: 7
